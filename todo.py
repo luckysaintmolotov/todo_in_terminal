@@ -76,3 +76,16 @@ def get_name_of_task():
     else:
         print("Task name not confirmed. Returning original value.")
         return task_name
+    
+def set_creation_date_to_today():
+    current_datetime = datetime.today()
+    formatted_current_date = current_datetime.strftime("%Y-%m-%d %H:%M")
+    return formatted_current_date
+
+def get_completion_date_and_time():
+    while True:
+        completion_date_time = input("Date and Time to finish task (YYYY-MM-DD HH:MM): ").strip()
+        try:
+            return datetime.strptime(completion_date_time, "%Y-%m-%d %H:%M")
+        except ValueError:
+            print(f"Invalid date and time format: {completion_date_time}")
