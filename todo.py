@@ -104,5 +104,22 @@ def set_duration():
             print(f"Invalid input - {duration}")
     except ValueError:
         print(f"Invalid format -{duration}- it is not valid time")
-        
-print(set_duration())
+
+def set_priority():
+    priority = ('no','low','medium','high','IMPORTANT')
+    while True:
+        selection = int(input(f"""
+Please select from the following
+1: {priority[0]}
+2: {priority[1]}
+3: {priority[2]}
+4: {priority[3]}
+5: {priority[4]}
+"""))
+        try:
+            return priority[selection-1]
+        except IndexError:
+            print(f"{selection} is not a valid selection")
+
+                
+print(set_priority())
