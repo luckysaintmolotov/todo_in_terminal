@@ -132,12 +132,25 @@ def skip_or_reschedule():
         
         if user_input in ['r','s','reschedule','skip']:
             if user_input in ['r','reschedule']:
-                skip_or_reschedule={False,True}
                 rescheduled_date = get_completion_date_and_time()
-                return skip_or_reschedule,rescheduled_date
+                return False,rescheduled_date
             else:
-                return True,False,None
+                return True,None
         else:
             print(f"Incorrect input {user_input}")
 
-print(skip_or_reschedule())
+def set_task():
+    TODO["name"]=get_name_of_task()
+    TODO["creation_date"]=set_creation_date_to_today()
+    TODO["completion_date"]=get_completion_date_and_time()
+    TODO["task_duration"]=set_duration()
+    TODO["priority"]=set_priority()
+    result = skip_or_reschedule()
+    if result == ("True","False","None"):
+        TODO["skip_or_reschedule"]=True
+        TODO["reschedule_date"]=None
+    else:
+        TODO["skip_or_reschedule"]=False
+        TODO["reschedule_date"]=result[1]
+    return TODO
+print(set_task())
