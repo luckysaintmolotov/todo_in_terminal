@@ -75,6 +75,10 @@ def set_creation_date_to_today():
 def get_completion_date_and_time():
     while True:
         completion_date_time = input("Date and Time to finish task (YYYY-MM-DD HH:MM): ").strip()
+        
+        if completion_date_time in '':
+            return None
+        
         try:
             return datetime.strptime(completion_date_time, "%Y-%m-%d %H:%M")
         except ValueError:
@@ -141,7 +145,4 @@ def set_task():
     'priority'], index=['name'])
     
     return df
-
-
-
 
