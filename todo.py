@@ -79,8 +79,8 @@ def get_name_of_task():
     
 def set_creation_date_to_today():
     current_datetime = datetime.today()
-    formatted_current_date = current_datetime.strftime("%Y-%m-%d %H:%M")
-    return formatted_current_date
+    return datetime.strftime(current_datetime,"%Y-%m-%d %H:%M")
+    
 
 def get_completion_date_and_time():
     while True:
