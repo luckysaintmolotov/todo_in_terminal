@@ -81,7 +81,6 @@ def set_creation_date_to_today():
     current_datetime = datetime.today()
     return datetime.strftime(current_datetime,"%Y-%m-%d %H:%M")
     
-
 def get_completion_date_and_time():
     while True:
         completion_date_time = input("Date and Time to finish task (YYYY-MM-DD HH:MM): ").strip()
@@ -89,3 +88,21 @@ def get_completion_date_and_time():
             return datetime.strptime(completion_date_time, "%Y-%m-%d %H:%M")
         except ValueError:
             print(f"Invalid date and time format: {completion_date_time}")
+
+def set_duration():
+    duration = input("duration of task(HH:MM):\n")
+    
+    try:
+        duration = datetime.strptime(duration, "%H:%M")
+        if duration.hour <= 23 and duration.minute <=59:
+            duration = {
+                "hour":duration.hour,
+                "minute":duration.minute
+                }
+            return duration
+        else:
+            print(f"Invalid input - {duration}")
+    except ValueError:
+        print(f"Invalid format -{duration}- it is not valid time")
+        
+print(set_duration())
