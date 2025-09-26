@@ -52,8 +52,8 @@ TODO = {
     "task_duration":"",
     "priority":"",
     "status":bool(),
-    "skip_or_reschedule":bool() 
-    
+    "skip_or_reschedule":bool(), 
+    "reschedule_date":""
 }
 
 def get_name_of_task():
@@ -126,7 +126,18 @@ Please select from the following
         else:
             print(f"{selection} is not a valid integer")
         
+def skip_or_reschedule():
+    while True:
+        user_input = input("(R)eschedule or (S)kip? r/s:\n")
         
-            
-                
-print(set_priority())
+        if user_input in ['r','s','reschedule','skip']:
+            if user_input in ['r','reschedule']:
+                skip_or_reschedule={False,True}
+                rescheduled_date = get_completion_date_and_time()
+                return skip_or_reschedule,rescheduled_date
+            else:
+                return True,False,None
+        else:
+            print(f"Incorrect input {user_input}")
+
+print(skip_or_reschedule())
