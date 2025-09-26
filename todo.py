@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-
+import re
 """
 # What it should contain
 
@@ -45,16 +45,7 @@ skip_or_reschedule : bool
 """
 
 
-TASK = {
-    "name":"",
-    "creation_date":"",
-    "completion_date":"",
-    "task_duration":"",
-    "priority":"",
-    "status":bool(),
-    "skip_or_reschedule":bool(), 
-    "reschedule_date":""
-}
+
 
 def get_name_of_task():
     while True:
@@ -95,15 +86,13 @@ def set_duration():
     try:
         duration = datetime.strptime(duration, "%H:%M")
         if duration.hour <= 23 and duration.minute <=59:
-            duration = {
-                "hour":duration.hour,
-                "minute":duration.minute
-                }
-            return duration
+            duration_string =  f"hour:{duration.hour}|minute:{duration.minute}"
+            return (duration_string)
         else:
             print(f"Invalid input - {duration}")
     except ValueError:
         print(f"Invalid format -{duration}- it is not valid time")
+    return None 
 
 def set_priority():
     priority = ('no','low','medium','high','IMPORTANT')
@@ -140,18 +129,19 @@ def skip_or_reschedule():
             print(f"Incorrect input {user_input}")
 
 def set_task():
-    TASK["name"]=get_name_of_task()
-    TASK["creation_date"]=set_creation_date_to_today()
-    TASK["completion_date"]=get_completion_date_and_time()
-    TASK["task_duration"]=set_duration()
-    TASK["priority"]=set_priority()
-    result = skip_or_reschedule()
-    if result == ("True","False","None"):
-        TASK["skip_or_reschedule"]=True
-        TASK["reschedule_date"]=None
-    else:
-        TASK["skip_or_reschedule"]=False
-        TASK["reschedule_date"]=result[1]
-    return TASK
+    TASK = {
+        "name": get_name_of_task(),
+        "creation_date": set_creation_date_to_today(),
+        "completion_date": get_completion_date_and_time(),
+        "task_duration": set_duration(),
+        "priority": set_priority(),
+    }
+    
+    df = pd.DataFrame(TASK, columns=['name', 'creation_date', 'completion_date', 'task_duration', 
+    'priority'], index=['name'])
+    
+    return df
+
+
 
 
